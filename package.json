@@ -1,0 +1,15 @@
+{
+  "name": "Triviamanic3",
+  "version": "0.0.1",
+  "description": "Trivia game management",
+  "main": "server.js",
+  "author": "Evgeny Nemzer",
+  "dependencies": {
+    "express": "~4.7.2",
+    "mongoose": "~3.6.2",
+    "morgan": "~1.2.2",
+    "body-parser": "~1.5.2",
+    "method-override": "~2.1.2",
+    "rekuire": "^0.1.5"
+  }
+}
