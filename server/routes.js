@@ -22,6 +22,6 @@ app.post('/api/quizzes', function (req, res) {
     });
 });
 
-app.get('*', function (res, req) {
+app.get('*', function (req, res) {
     res.sendfile('../public/index.html');
 });
