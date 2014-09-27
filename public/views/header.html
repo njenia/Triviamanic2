@@ -1,0 +1,21 @@
+<div ng-controller="headerCtrl">
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand btn-link" ui-sref="main">Triviamanic</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="main" class="btn-link">Home</a></li>
+            <li><a ui-sref="about" class="btn-link">About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#">{{currentUser.name}}</a>
+            </li>
+            <li>
+                <a ng-hide="currentUser" target="_self" href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span>
+                    Google</a>
+                <a ng-show="currentUser" target="_self" href="/logout" class="btn-link">logout</a>
+            </li>
+        </ul>
+    </nav>
+</div>

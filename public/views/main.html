@@ -1,0 +1,13 @@
+<h1>
+    Your Quizzes
+    <button type="button" ng-click="create()" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span>
+        New quiz
+    </button>
+</h1>
+<ul>
+    <li ng-repeat="quiz in quizzes">
+        <a ng-href="editQuiz/{{quiz._id}}">{{quiz._id}}</a>
+
+    </li>
+</ul>
