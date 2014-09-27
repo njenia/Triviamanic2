@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="triviamanic">
 <head lang="en">
     <meta charset="UTF-8">
     <title>Triviamanic</title>
 
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="components/angular-gridster/dist/angular-gridster.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/css/jquery-ui.min.css" />
 </head>
 <body>
+<base href="/"/>
+<div ng-include src="'views/header.html'"></div>
 
+<div class="container">
+    <ui-view></ui-view>
+</div>
 
-<script src="components/jquery/dist/jquery.js"></script>
-<script src="components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="components/lodash/dist/lodash.js"></script>
+<script src="//rawgit.com/sdecima/javascript-detect-element-resize/master/detect-element-resize.js"></script>
 <script src="components/angular/angular.js"></script>
+<script src="components/ui-router/release/angular-ui-router.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+<script src="components/angular-gridster/src/angular-gridster.js"></script>
+<script src="components/restangular/dist/restangular.js"></script>
+
+<script src="js/app.js"></script>
+
+<script src="js/common/services/authService.js"></script>
+<script src="js/common/services/quizzesService.js"></script>
+
+<script src="js/main/controllers/mainCtrl.js"></script>
+<script src="js/header/controllers/headerCtrl.js"></script>
+<script src="js/editQuestion/controllers/editQuestionCtrl.js"></script>
+<script src="js/editQuiz/controllers/editQuizCtrl.js"></script>
+
 </body>
 </html>

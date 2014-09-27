@@ -1,4 +1,5 @@
-var Quiz = rekuire('Quiz').Quiz;
+var Quiz = rekuire('Quiz');
+var path = rekuire('path');
 
 app.get('/api/quizzes', function (req, res) {
     Quiz.find(function (err, quizzes) {
@@ -22,6 +23,7 @@ app.post('/api/quizzes', function (req, res) {
     });
 });
 
-app.get('*', function (req, res) {
-    res.sendfile('../public/index.html');
+app.get('/', function (req, res) {
+    console.log('global route');
+    res.sendfile(path.resolve('../public/index.html'));
 });

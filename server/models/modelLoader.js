@@ -1,6 +1,7 @@
 function loadModels(mongoose) {
     console.log('Starting to load models');
-    rekuire('Quiz').defineQuiz(mongoose);
+    rekuire('User');
+    rekuire('Quiz');
     console.log('Finished loading models');
 }
 
