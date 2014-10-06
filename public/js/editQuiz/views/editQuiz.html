@@ -1,1 +1,23 @@
 <h1>Edit Quiz {{quiz.id}}</h1>
+
+        <button type="button" ng-click="addCategory()">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add category
+        </button>
+
+<div class="row">
+    <div class="col-md-2 category-col" ng-repeat="category in quiz.categories">
+        <header class="category-col-header">
+            <h3>{{category.name}}</h3>
+        </header>
+        <article ng-repeat="question in category.questions">
+            {{question.points}}
+        </article>
+        <article>
+            <a ng-click="addQuestionTo(category)" class="with-pointer">
+                <span class="glyphicon glyphicon-plus"></span>
+                Add question
+            </a>
+        </article>
+    </div>
+</div>

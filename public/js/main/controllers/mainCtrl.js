@@ -2,7 +2,7 @@ triviamanicApp.controller('mainCtrl', function ($scope, quizzesService, $state) 
     $scope.create = function () {
         quizzesService.create()
             .then(function (data) {
-                $state.go('editQuiz', data._id);
+                $state.go('editQuiz', {id: data._id});
             }, function () {
                 console.log('Error with creating a quiz');
             });

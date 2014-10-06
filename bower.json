@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "es6-shim": "~0.18.0"
   }
 }

@@ -28,3 +28,24 @@
   content: "";
   padding: 0;
 }
+
+/* Category column */
+
+.category-col {
+    background-color: rgba(190, 190, 250, 0.5);
+    margin: 8px;
+    padding: 5px;
+    text-align: center;
+}
+
+.category-col-header {
+
+}
+
+.category-col-header > h3 {
+    margin-top: 0;
+}
+
+.with-pointer {
+    cursor: pointer;
+}
