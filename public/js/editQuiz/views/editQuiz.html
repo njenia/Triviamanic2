@@ -1,14 +1,12 @@
 <h1>Edit Quiz {{quiz.id}}</h1>
 
-        <button type="button" ng-click="addCategory()">
-            <span class="glyphicon glyphicon-plus"></span>
-            Add category
-        </button>
-
 <div class="row">
     <div class="col-md-2 category-col" ng-repeat="category in quiz.categories">
         <header class="category-col-header">
-            <h3>{{category.name}}</h3>
+            <h3 data-editable-text="category.name"
+                data-onbeforesave="updateCategoryTitle(category, $data)">
+                {{category.name || '[Title]'}}
+            </h3>
         </header>
         <article ng-repeat="question in category.questions">
             {{question.points}}
@@ -19,5 +17,11 @@
                 Add question
             </a>
         </article>
+    </div>
+    <div class="col-md-2 margin-5">
+        <button type="button" class="btn btn-primary" ng-click="addCategory()">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add category
+        </button>
     </div>
 </div>

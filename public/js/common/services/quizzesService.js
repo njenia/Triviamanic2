@@ -11,7 +11,15 @@ triviamanicApp.service('quizzesService', function (Restangular) {
             return quizzes.post({text: quizText});
         },
         addCategory: function (id) {
-            return Restangular.one('api/quizzes', id).all('categories').post({});
+            return Restangular.one('api/quizzes', id).all('categories').post({
+                name: ''
+            });
+        },
+        updateCategory: function (quiz, category) {
+            return Restangular
+                .one('api/quizzes', quiz._id)
+                .one('categories', category._id)
+                .customPUT(category);
         }
     };
 });

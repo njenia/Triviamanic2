@@ -1,3 +1,4 @@
+'use strict';
 triviamanicApp.controller('mainCtrl', function ($scope, quizzesService, $state) {
     $scope.create = function () {
         quizzesService.create()

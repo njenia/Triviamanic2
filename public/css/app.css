@@ -49,3 +49,7 @@
 .with-pointer {
     cursor: pointer;
 }
+
+.margin-5 {
+    margin: 5px;
+}

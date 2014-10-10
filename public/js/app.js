@@ -1,4 +1,4 @@
-var triviamanicApp = angular.module('triviamanic', ['ui.router', 'ui.bootstrap', 'gridster', 'restangular']);
+var triviamanicApp = angular.module('triviamanic', ['ui.router', 'ui.bootstrap', 'gridster', 'restangular', 'xeditable']);
 
 triviamanicApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
@@ -17,12 +17,17 @@ triviamanicApp.config(function ($stateProvider, $urlRouterProvider, $locationPro
         })
         .state('editQuiz', {
             url: '/editQuiz/:id',
-            templateUrl: 'js/editQuiz/views/editQuiz.html',
+            templateUrl: '/public/js/editQuiz/views/editQuiz.html',
             controller: 'editQuizCtrl'
         })
         .state('editQuestion', {
             url: '/editQuestion',
-            templateUrl: 'js/editQuestion/views/editQuestion.html',
+            templateUrl: '/public/js/editQuestion/views/editQuestion.html',
             controller: 'editQuestionCtrl'
         });
+});
+
+triviamanicApp.run(function (editableOptions, editableThemes) {
+    editableThemes.bs3.inputClass = 'input-sm';
+    editableOptions.theme = 'bs3';
 });
