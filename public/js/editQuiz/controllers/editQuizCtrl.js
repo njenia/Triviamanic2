@@ -1,4 +1,4 @@
-triviamanicApp.controller('editQuizCtrl', function ($scope, $stateParams, quizzesService, $timeout) {
+triviamanicApp.controller('editQuizCtrl', function ($scope, $stateParams, quizzesService, $timeout, $state) {
     quizzesService.one($stateParams.id).then(function (data) {
         $scope.quiz = data;
     });
@@ -15,11 +15,17 @@ triviamanicApp.controller('editQuizCtrl', function ($scope, $stateParams, quizze
 
     $scope.updateCategoryTitle = function (category, name) {
         category.name = name;
-        var updateCategoryPromise = quizzesService.updateCategory($scope.quiz, category)
+        return quizzesService.updateCategory($scope.quiz, category)
             .then(function (newCategory) {
                 var indexOfCategory = $scope.quiz.categories.indexOf(category);
                 $scope.quiz.categories[indexOfCategory] = newCategory;
             });
-        return updateCategoryPromise;
+    };
+
+    $scope.addQuestionTo = function (category) {
+        quizzesService.addQuestionTo($scope.quiz, category)
+            .then(function (question) {
+                $state.go('editQuestion', {id: question._id});
+            });
     };
 });

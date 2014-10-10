@@ -20,6 +20,13 @@ triviamanicApp.service('quizzesService', function (Restangular) {
                 .one('api/quizzes', quiz._id)
                 .one('categories', category._id)
                 .customPUT(category);
+        },
+        addQuestionTo: function (quiz, category) {
+            return Restangular
+                .one('api/quizzes', quiz._id)
+                .one('categories', category._id)
+                .all('questions')
+                .post({});
         }
     };
 });

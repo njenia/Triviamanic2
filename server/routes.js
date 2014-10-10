@@ -1,5 +1,6 @@
 var Quiz = rekuire('Quiz');
 var Category = rekuire('Category');
+var Question = rekuire('Question');
 var path = rekuire('path');
 var express = require('express');
 
@@ -63,6 +64,26 @@ app.put('/api/quizzes/:id/categories/:categoryId', function (req, res) {
             category.name = req.body.name;
             quiz.save();
             res.send(category);
+        }
+    });
+});
+
+app.post('/api/quizzes/:quizId/categories/:categoryId/questions', function (req, res) {
+    Question.create(req.body, function (err, question) {
+        if (err) {
+            res.send(err);
+        } else {
+            console.log(question);
+            Quiz.findById(req.param('quizId'), function (err, quiz) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    var category = quiz.categories.id(req.param('categoryId'));
+                    category.questions.push(question);
+                    quiz.save();
+                    res.send(question);
+                }
+            });
         }
     });
 });
