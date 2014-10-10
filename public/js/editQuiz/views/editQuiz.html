@@ -4,6 +4,7 @@
     <div class="col-md-2 category-col" ng-repeat="category in quiz.categories">
         <header class="category-col-header">
             <h3 data-editable-text="category.name"
+                data-buttons="no"
                 data-onbeforesave="updateCategoryTitle(category, $data)">
                 {{category.name || '[Title]'}}
             </h3>
