@@ -1,12 +1,21 @@
 triviamanicApp.controller('editQuizCtrl', function ($scope, $stateParams, quizzesService, $timeout, $state) {
-    quizzesService.one($stateParams.id).then(function (data) {
+    quizzesService.oneWithQuestions($stateParams.id).then(function (data) {
         $scope.quiz = data;
+        $scope.chunkedQuizCategories = _.groupBy(data.categories, function(element, index){
+            return Math.floor(index / 5);
+        });
+        $scope.chunkedQuizCategories = _.toArray($scope.chunkedQuizCategories);
     });
 
     $scope.addCategory = function () {
         quizzesService.addCategory($stateParams.id)
-            .then(function (data) {
-                $scope.quiz = data;
+            .then(function (newCategory) {
+                if (_.last($scope.chunkedQuizCategories).length === 5) {
+                    $scope.chunkedQuizCategories.push([newCategory]);
+                } else {
+                    _.last($scope.chunkedQuizCategories).push(newCategory);
+                }
+                $scope.quiz.categories.push(newCategory);
                 $timeout(function() {
                     $('.category-col-header>h3').last().click();
                 }, 0.5);
@@ -25,6 +34,7 @@ triviamanicApp.controller('editQuizCtrl', function ($scope, $stateParams, quizze
     $scope.addQuestionTo = function (category) {
         quizzesService.addQuestionTo($scope.quiz, category)
             .then(function (question) {
+                category.questions.push(question);
                 $state.go('editQuestion', {id: question._id});
             });
     };

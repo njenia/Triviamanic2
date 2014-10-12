@@ -3,6 +3,7 @@ var Category = rekuire('Category');
 var Question = rekuire('Question');
 var path = rekuire('path');
 var express = require('express');
+var _ = require('lodash');
 
 app.use('/public', express.static(__dirname + '/../public'));
 
@@ -17,12 +18,19 @@ app.get('/api/quizzes', function (req, res) {
 });
 
 app.get('/api/quizzes/:id', function (req, res) {
-    Quiz.findById(req.param('id'), function (err, quiz) {
+    var quizQuery = Quiz.findById(req.param('id'));
+    if (req.query.withQuestions) {
+        quizQuery = quizQuery.populate({
+            path: 'categories.questions',
+            model: 'Question'
+        })
+    }
+    quizQuery.exec(function (err, quiz) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(quiz);
         }
-
-        res.json(quiz);
     });
 });
 
@@ -50,7 +58,7 @@ app.post('/api/quizzes/:id/categories', function (req, res) {
             if (err) {
                 res.send(err);
             } else {
-                res.json(quiz);
+                res.json(_.last(quiz.categories));
             }
         });
 });
@@ -69,6 +77,7 @@ app.put('/api/quizzes/:id/categories/:categoryId', function (req, res) {
 });
 
 app.post('/api/quizzes/:quizId/categories/:categoryId/questions', function (req, res) {
+    console.log(req.body);
     Question.create(req.body, function (err, question) {
         if (err) {
             res.send(err);

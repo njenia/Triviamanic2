@@ -7,6 +7,9 @@ triviamanicApp.service('quizzesService', function (Restangular) {
         one: function(id) {
             return quizzes.one(id).get();
         },
+        oneWithQuestions: function(id) {
+            return quizzes.one(id).get({withQuestions: true});
+        },
         create: function (quizText) {
             return quizzes.post({text: quizText});
         },
@@ -26,7 +29,9 @@ triviamanicApp.service('quizzesService', function (Restangular) {
                 .one('api/quizzes', quiz._id)
                 .one('categories', category._id)
                 .all('questions')
-                .post({});
+                .post({
+                    points: category.questions.length * 100 + 100
+                });
         }
     };
 });
