@@ -19,7 +19,7 @@
             </a>
         </footer>
     </div>
-    <div ng-if="categoryChunk.length != 5" class="col-md-2 margin-5">
+    <div ng-if="categoryChunk.length !== 5" class="col-md-2 margin-5">
         <button type="button" class="btn btn-primary" ng-click="addCategory()">
             <span class="glyphicon glyphicon-plus"></span>
             Add category
@@ -27,3 +27,11 @@
     </div>
 </div>
 
+<div ng-if="shouldExtraAddCategoryButtonBeShown()" class="row">
+    <div class="col-md-2 margin-5">
+        <button type="button" class="btn btn-primary" ng-click="addCategory()">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add category
+        </button>
+    </div>
+</div>

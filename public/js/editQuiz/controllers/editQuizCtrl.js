@@ -1,4 +1,6 @@
 triviamanicApp.controller('editQuizCtrl', function ($scope, $stateParams, quizzesService, $timeout, $state) {
+    $scope.chunkedQuizCategories = [];
+
     quizzesService.oneWithQuestions($stateParams.id).then(function (data) {
         $scope.quiz = data;
         $scope.chunkedQuizCategories = _.groupBy(data.categories, function(element, index){
@@ -38,4 +40,9 @@ triviamanicApp.controller('editQuizCtrl', function ($scope, $stateParams, quizze
                 $state.go('editQuestion', {id: question._id});
             });
     };
+
+    $scope.shouldExtraAddCategoryButtonBeShown = function () {
+        return $scope.chunkedQuizCategories.length !== 0
+            && _.last($scope.chunkedQuizCategories).length === 5;
+    }
 });
