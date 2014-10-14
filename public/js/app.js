@@ -1,4 +1,5 @@
-var triviamanicApp = angular.module('triviamanic', ['ui.router', 'ui.bootstrap', 'gridster', 'restangular', 'xeditable']);
+var triviamanicApp = angular.module('triviamanic', ['ui.router', 'ui.bootstrap', 'gridster',
+    'restangular', 'xeditable', 'ui.sortable', 'bootstrap-auto-grid']);
 
 triviamanicApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');

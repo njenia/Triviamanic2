@@ -64,12 +64,28 @@ app.post('/api/quizzes/:id/categories', function (req, res) {
 });
 
 app.put('/api/quizzes/:id/categories/:categoryId', function (req, res) {
-    Quiz.findById(req.param('id'), function (err, quiz) {
+    Quiz.findById(req.param('id'))
+        .populate({
+            path: 'categories.questions',
+            model: 'Question'
+        })
+        .exec(function (err, quiz) {
         if (err) {
             res.send(err);
         } else {
             var category = quiz.categories.id(req.body._id);
             category.name = req.body.name;
+            category.questions = req.body.questions;
+            category.questions.forEach(function (question) {
+                console.log(question);
+                Question.findByIdAndUpdate(question._id, {points: question.points}, function (err, question) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(question);
+                    }
+                });
+            });
             quiz.save();
             res.send(category);
         }
@@ -82,7 +98,6 @@ app.post('/api/quizzes/:quizId/categories/:categoryId/questions', function (req,
         if (err) {
             res.send(err);
         } else {
-            console.log(question);
             Quiz.findById(req.param('quizId'), function (err, quiz) {
                 if (err) {
                     res.send(err);

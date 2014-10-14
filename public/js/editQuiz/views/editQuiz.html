@@ -1,30 +1,35 @@
 <h1>Edit Quiz {{quiz.id}}</h1>
 
 <div class="row" ng-repeat="categoryChunk in chunkedQuizCategories">
-    <div class="col-md-2 category-col" ng-repeat="category in categoryChunk">
-        <header class="category-col-header">
-            <h3 data-editable-text="category.name"
-                data-buttons="no"
-                data-onbeforesave="updateCategoryTitle(category, $data)">
-                {{category.name || '[Title]'}}
-            </h3>
-        </header>
-        <article ng-repeat="question in category.questions">
-            <a ng-href="editQuestion/{{question._id}}">{{question.points}}</a>
-        </article>
-        <footer>
-            <a ng-click="addQuestionTo(category)" class="with-pointer">
+    <bootstrap-auto-grid num-of-columns="5">
+        <div class="col-md-2 category-col" ng-repeat="category in categoryChunk">
+            <header class="category-col-header">
+                <h3 data-editable-text="category.name"
+                    data-buttons="no"
+                    data-onbeforesave="updateCategoryTitle(category, $data)">
+                    {{category.name || '[Title]'}}
+                </h3>
+            </header>
+            <ul ui-sortable="sortableOptions" ng-model="category.questions" class="no-bullets">
+                <li ng-repeat="question in category.questions | orderBy:points">
+                    <a ng-href="editQuestion/{{question._id}}">{{question.points}}</a>
+                </li>
+            </ul>
+
+            <footer>
+                <a ng-click="addQuestionTo(category)" class="with-pointer">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Add question
+                </a>
+            </footer>
+        </div>
+        <div ng-if="categoryChunk.length !== 5" class="col-md-2 margin-5">
+            <button type="button" class="btn btn-primary" ng-click="addCategory()">
                 <span class="glyphicon glyphicon-plus"></span>
-                Add question
-            </a>
-        </footer>
-    </div>
-    <div ng-if="categoryChunk.length !== 5" class="col-md-2 margin-5">
-        <button type="button" class="btn btn-primary" ng-click="addCategory()">
-            <span class="glyphicon glyphicon-plus"></span>
-            Add category
-        </button>
-    </div>
+                Add category
+            </button>
+        </div>
+    </bootstrap-auto-grid>
 </div>
 
 <div ng-if="shouldExtraAddCategoryButtonBeShown()" class="row">

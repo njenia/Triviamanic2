@@ -1,5 +1,6 @@
 triviamanicApp.service('quizzesService', function (Restangular) {
     var quizzes = Restangular.all('api/quizzes');
+
     return {
         all: function () {
             return quizzes.getList();
@@ -19,6 +20,7 @@ triviamanicApp.service('quizzesService', function (Restangular) {
             });
         },
         updateCategory: function (quiz, category) {
+            correctPointsFor(category);
             return Restangular
                 .one('api/quizzes', quiz._id)
                 .one('categories', category._id)
@@ -34,4 +36,12 @@ triviamanicApp.service('quizzesService', function (Restangular) {
                 });
         }
     };
+
+    function correctPointsFor(category) {
+        var currPoints = 100;
+        category.questions.forEach(function (question) {
+            question.points = currPoints;
+            currPoints += 100;
+        });
+    }
 });
