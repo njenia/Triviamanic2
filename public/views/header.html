@@ -14,7 +14,7 @@
             <li>
                 <a ng-hide="currentUser" target="_self" href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span>
                     Google</a>
-                <a ng-show="currentUser" target="_self" href="/logout" class="btn-link">logout</a>
+                <a ng-show="currentUser" target="_self" ng-click="logout()" class="btn-link">logout</a>
             </li>
         </ul>
     </nav>

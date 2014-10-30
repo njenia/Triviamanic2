@@ -1,15 +1,13 @@
-triviamanicApp.service('authService', function ($http, $q) {
-    var userInfo;
-
+triviamanicApp.service('authService', function ($http, $q, $window) {
     function currentUser() {
         var deferred = $q.defer();
-        if (userInfo) {
-            deferred.resolve(userInfo);
+        if ($window.sessionStorage['loggedInUser']) {
+            deferred.resolve(JSON.parse($window.sessionStorage['loggedInUser']));
         } else {
             $http.get('/currentUser').then(function(result) {
                 if (result.data) {
-                    userInfo = result.data.google;
-                    deferred.resolve(userInfo);
+                    $window.sessionStorage['loggedInUser'] = JSON.stringify(result.data.google);
+                    deferred.resolve(JSON.parse($window.sessionStorage['loggedInUser']));
                 } else {
                     deferred.reject({authenticated: false});
                 }
@@ -21,7 +19,13 @@ triviamanicApp.service('authService', function ($http, $q) {
         return deferred.promise;
     }
 
+    function logout() {
+        $window.sessionStorage.removeItem('loggedInUser');
+        $window.location.href = '/logout';
+    }
+
     return {
-        getCurrentUser: currentUser
+        getCurrentUser: currentUser,
+        logout: logout
     };
 });
