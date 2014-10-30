@@ -1,5 +1,5 @@
 triviamanicApp.controller('headerCtrl', function ($scope, authService) {
-    $scope.$on('currentUserRecieved', function () {
-        $scope.currentUser = authService.getCurrentUser();
+    authService.getCurrentUser().then(function (userInfo) {
+        $scope.currentUser = userInfo;
     });
 });

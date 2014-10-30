@@ -7,7 +7,15 @@ var _ = require('lodash');
 
 app.use('/public', express.static(__dirname + '/../public'));
 
-app.get('/api/quizzes', function (req, res) {
+function isAuthenticated(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.send(401);
+    }
+}
+
+app.get('/api/quizzes', isAuthenticated, function (req, res) {
     Quiz.find(function (err, quizzes) {
         if (err) {
             res.send(err);
@@ -77,7 +85,6 @@ app.put('/api/quizzes/:id/categories/:categoryId', function (req, res) {
             category.name = req.body.name;
             category.questions = req.body.questions;
             category.questions.forEach(function (question) {
-                console.log(question);
                 Question.findByIdAndUpdate(question._id, {points: question.points}, function (err, question) {
                     if (err) {
                         console.log(err);
