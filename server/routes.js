@@ -42,6 +42,16 @@ app.get('/api/quizzes/:id', function (req, res) {
     });
 });
 
+app.get('/api/questions/:id', function (req, res) {
+    Question.findById(req.param('id'), function (err, question) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(question);
+        }
+    });
+});
+
 app.post('/api/quizzes', function (req, res) {
     Quiz.create({
         text: req.body.text
@@ -100,7 +110,6 @@ app.put('/api/quizzes/:id/categories/:categoryId', function (req, res) {
 });
 
 app.post('/api/quizzes/:quizId/categories/:categoryId/questions', function (req, res) {
-    console.log(req.body);
     Question.create(req.body, function (err, question) {
         if (err) {
             res.send(err);
@@ -115,6 +124,18 @@ app.post('/api/quizzes/:quizId/categories/:categoryId/questions', function (req,
                     res.send(question);
                 }
             });
+        }
+    });
+});
+
+app.post('/api/questions/:questionId/questionImages', function (req, res) {
+    Question.findById(req.param('questionId'), function (err, question) {
+        if (err) {
+            res.send(err);
+        } else {
+            question.images.push(req.body);
+            question.save();
+            res.send(req.body);
         }
     });
 });

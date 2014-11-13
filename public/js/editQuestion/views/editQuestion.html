@@ -1,9 +1,11 @@
-<h1>Edit Question</h1>
-
+<h1>Edit Question {{question._id}}</h1>
+<div>
+        <button type="button" class="btn btn-primary" ng-click="addImage()">Add Image</button>
+</div>
 <div gridster="gridsterOpts">
     <ul>
         <li gridster-item="question" ng-repeat="question in questionImages">
-            a grid item
+            <img class="grid-item-img" ng-src="{{question.url}}" alt=""/>
         </li>
     </ul>
 </div>

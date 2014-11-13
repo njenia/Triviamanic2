@@ -37,11 +37,14 @@ triviamanicApp.config(function ($stateProvider, $urlRouterProvider, $locationPro
             }
         })
         .state('editQuestion', {
-            url: '/editQuestion',
+            url: '/editQuestion/:id',
             templateUrl: '/public/js/editQuestion/views/editQuestion.html',
             controller: 'editQuestionCtrl',
             resolve: {
-                userLoggedIn: loggedInUserResolver
+                userLoggedIn: loggedInUserResolver,
+                question: function (questionsService, $stateParams) {
+                    return questionsService.one($stateParams.id);
+                }
             }
         });
 });

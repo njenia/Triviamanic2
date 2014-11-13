@@ -9,7 +9,7 @@ triviamanicApp.service('quizzesService', function (Restangular) {
             return quizzes.one(id).get();
         },
         oneWithQuestions: function(id) {
-            return quizzes.one(id).get({withQuestions: true});
+            return quizzes.one(id).get({withQuefstions: true});
         },
         create: function (quizText) {
             return quizzes.post({text: quizText});
